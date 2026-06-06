@@ -1,0 +1,142 @@
+[gd_scene load_steps=18 format=3 uid="uid://bloxqmss0hmbh"]
+
+[ext_resource type="Script" uid="uid://cgscq7bfo0vxj" path="res://scripts/drone/drone_movement.gd" id="1_gs6nb"]
+[ext_resource type="Script" uid="uid://cjl2ewf2qpdi2" path="res://scripts/drone/drone_inventory.gd" id="2_xcp44"]
+[ext_resource type="Script" uid="uid://cu1bt0qstqb7g" path="res://scripts/drone/drone_collector.gd" id="3_0tq5o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hull"]
+albedo_color = Color(0.9, 0.92, 0.96, 1)
+metallic = 0.2
+roughness = 0.45
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_accent"]
+albedo_color = Color(0.14, 0.68, 0.78, 1)
+emission_enabled = true
+emission = Color(0.08, 0.45, 0.55, 1)
+emission_energy_multiplier = 0.7
+metallic = 0.3
+roughness = 0.35
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cockpit"]
+albedo_color = Color(0.08, 0.12, 0.22, 1)
+metallic = 0.6
+roughness = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_engine"]
+albedo_color = Color(0.25, 0.9, 1, 1)
+emission_enabled = true
+emission = Color(0.2, 0.85, 1, 1)
+emission_energy_multiplier = 2.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_fuselage"]
+material = SubResource("StandardMaterial3D_hull")
+size = Vector3(0.55, 0.14, 1.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nose"]
+material = SubResource("StandardMaterial3D_accent")
+size = Vector3(0.28, 0.1, 0.42)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wing_l"]
+material = SubResource("StandardMaterial3D_hull")
+size = Vector3(0.72, 0.04, 0.48)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wing_r"]
+material = SubResource("StandardMaterial3D_hull")
+size = Vector3(0.72, 0.04, 0.48)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fin"]
+material = SubResource("StandardMaterial3D_accent")
+size = Vector3(0.06, 0.16, 0.32)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cockpit"]
+material = SubResource("StandardMaterial3D_cockpit")
+size = Vector3(0.32, 0.1, 0.38)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_engine_l"]
+material = SubResource("StandardMaterial3D_hull")
+top_radius = 0.11
+bottom_radius = 0.14
+height = 0.28
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_engine_r"]
+material = SubResource("StandardMaterial3D_hull")
+top_radius = 0.11
+bottom_radius = 0.14
+height = 0.28
+
+[sub_resource type="BoxMesh" id="BoxMesh_thruster_l"]
+material = SubResource("StandardMaterial3D_engine")
+size = Vector3(0.14, 0.14, 0.08)
+
+[sub_resource type="BoxMesh" id="BoxMesh_thruster_r"]
+material = SubResource("StandardMaterial3D_engine")
+size = Vector3(0.14, 0.14, 0.08)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_body"]
+size = Vector3(1.05, 0.26, 1.35)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_collect"]
+radius = 0.55
+
+[node name="Drone" type="CharacterBody3D"]
+script = ExtResource("1_gs6nb")
+
+[node name="DroneMesh" type="Node3D" parent="."]
+
+[node name="Fuselage" type="MeshInstance3D" parent="DroneMesh"]
+mesh = SubResource("BoxMesh_fuselage")
+
+[node name="Nose" type="MeshInstance3D" parent="DroneMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, -0.72)
+mesh = SubResource("BoxMesh_nose")
+
+[node name="WingLeft" type="MeshInstance3D" parent="DroneMesh"]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -0.48, -0.02, 0.08)
+mesh = SubResource("BoxMesh_wing_l")
+
+[node name="WingRight" type="MeshInstance3D" parent="DroneMesh"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0.48, -0.02, 0.08)
+mesh = SubResource("BoxMesh_wing_r")
+
+[node name="Fin" type="MeshInstance3D" parent="DroneMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.42)
+mesh = SubResource("BoxMesh_fin")
+
+[node name="Cockpit" type="MeshInstance3D" parent="DroneMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, -0.12)
+mesh = SubResource("BoxMesh_cockpit")
+
+[node name="EngineLeft" type="MeshInstance3D" parent="DroneMesh"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, -0.28, 0, 0.62)
+mesh = SubResource("CylinderMesh_engine_l")
+
+[node name="EngineRight" type="MeshInstance3D" parent="DroneMesh"]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0.28, 0, 0.62)
+mesh = SubResource("CylinderMesh_engine_r")
+
+[node name="ThrusterLeft" type="MeshInstance3D" parent="DroneMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.28, 0, 0.78)
+mesh = SubResource("BoxMesh_thruster_l")
+
+[node name="ThrusterRight" type="MeshInstance3D" parent="DroneMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28, 0, 0.78)
+mesh = SubResource("BoxMesh_thruster_r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_body")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.75, 2)
+
+[node name="DroneInventory" type="Node" parent="."]
+script = ExtResource("2_xcp44")
+
+[node name="DroneCollector" type="Area3D" parent="."]
+collision_mask = 2
+script = ExtResource("3_0tq5o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DroneCollector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15)
+shape = SubResource("SphereShape3D_collect")

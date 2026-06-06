@@ -1,0 +1,95 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgvvskr2ucjg7"]
+
+[ext_resource type="Script" uid="uid://bw0tga43hen1y" path="res://scripts/ui/VerticalButtons.gd" id="1_vb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.08, 0.1, 0.18, 0.55)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.25, 0.55, 0.65, 0.6)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_pressed"]
+bg_color = Color(0.15, 0.45, 0.55, 0.75)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.92, 1, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.06, 0.05, 0.14, 0.45)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[node name="VerticalButtons" type="Control"]
+custom_minimum_size = Vector2(130, 290)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 130.0
+offset_bottom = 290.0
+mouse_filter = 2
+script = ExtResource("1_vb")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="UpWrap" type="PanelContainer" parent="Panel/VBox"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_btn")
+
+[node name="UpButton" type="Button" parent="Panel/VBox/UpWrap"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.7, 0.95, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn")
+flat = true
+text = "▲"
+
+[node name="DownWrap" type="PanelContainer" parent="Panel/VBox"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_btn")
+
+[node name="DownButton" type="Button" parent="Panel/VBox/DownWrap"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.7, 0.95, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 36
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn")
+flat = true
+text = "▼"

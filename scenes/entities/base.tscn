@@ -1,0 +1,85 @@
+[gd_scene load_steps=11 format=3 uid="uid://b5h28kaus4nd4"]
+
+[ext_resource type="Script" uid="uid://b2wxwvlbat6kx" path="res://scripts/entities/base.gd" id="1_qp2lt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_frame"]
+albedo_color = Color(0.1, 0.12, 0.2, 1)
+metallic = 0.4
+roughness = 0.6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_accent"]
+albedo_color = Color(0.12, 0.68, 0.78, 1)
+emission_enabled = true
+emission = Color(0.08, 0.5, 0.62, 1)
+emission_energy_multiplier = 0.8
+metallic = 0.25
+roughness = 0.35
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pad"]
+albedo_color = Color(0.2, 0.85, 0.95, 1)
+emission_enabled = true
+emission = Color(0.15, 0.75, 0.9, 1)
+emission_energy_multiplier = 1.8
+metallic = 0.15
+roughness = 0.25
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_plate"]
+material = SubResource("StandardMaterial3D_frame")
+top_radius = 1.85
+bottom_radius = 2.0
+height = 0.18
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pillar"]
+material = SubResource("StandardMaterial3D_frame")
+top_radius = 0.55
+bottom_radius = 0.7
+height = 1.05
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_band"]
+material = SubResource("StandardMaterial3D_accent")
+top_radius = 0.62
+bottom_radius = 0.62
+height = 0.14
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pad"]
+material = SubResource("StandardMaterial3D_pad")
+top_radius = 1.15
+bottom_radius = 1.2
+height = 0.22
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_body"]
+size = Vector3(3.6, 1.6, 3.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_landing"]
+size = Vector3(2.6, 2.2, 2.6)
+
+[node name="Base" type="Area3D"]
+script = ExtResource("1_qp2lt")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="Pedestal" type="Node3D" parent="StaticBody3D"]
+
+[node name="Plate" type="MeshInstance3D" parent="StaticBody3D/Pedestal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.09, 0)
+mesh = SubResource("CylinderMesh_plate")
+
+[node name="Pillar" type="MeshInstance3D" parent="StaticBody3D/Pedestal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.705, 0)
+mesh = SubResource("CylinderMesh_pillar")
+
+[node name="Band" type="MeshInstance3D" parent="StaticBody3D/Pedestal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+mesh = SubResource("CylinderMesh_band")
+
+[node name="LandingPad" type="MeshInstance3D" parent="StaticBody3D/Pedestal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.345, 0)
+mesh = SubResource("CylinderMesh_pad")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("BoxShape3D_body")
+
+[node name="LandingPoint" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0, 0)
+shape = SubResource("BoxShape3D_landing")

@@ -1,0 +1,42 @@
+# Godot 4+
+.godot/
+
+# Godot 3 legacy (harmless to keep)
+.import/
+
+# Export — локальные настройки с путями и секретами
+export.cfg
+export_credentials.cfg
+
+# Сборки (не хранить в репозитории)
+*.exe
+*.pck
+*.apk
+*.aab
+*.zip
+export/
+
+# Автогенерация
+*.translation
+
+# Временные файлы редактора
+*.tmp
+
+# Mono / C# (если не используется — не мешает)
+.mono/
+data_*/
+mono_crash.*.json
+
+# Android build
+/android/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# AI / локальные инструменты
+.claude/
