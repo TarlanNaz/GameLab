@@ -23,7 +23,7 @@
 
 Готовые сборки — без установки Godot:
 
-**[Google Диск — файлы проекта](https://drive.google.com/drive/folders/1X2_gOgwe-ba_jm09-Vc4hNaiZ1rnIeMM?usp=drive_link)**
+**[Google Диск — файлы проекта](https://disk.yandex.ru/d/x5KIVnR0HohtUQ)**
 
 | Платформа | Файлы | Запуск |
 |-----------|-------|--------|

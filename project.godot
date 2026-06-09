@@ -70,3 +70,7 @@ pointing/emulate_touch_from_mouse=true
 
 3d_physics/layer_1="drone"
 3d_physics/layer_2="core"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
